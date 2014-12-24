@@ -7,10 +7,6 @@ trait RoundableTrait
     public function up($value, $by)
     {
         if(!is_integer($by) || $by == 0) throw new InvalidArgumentException;
-        if($value == 0)
-        {
-            return $by;
-        }
         return (int) ceil($value / $by) * $by;
     }
 

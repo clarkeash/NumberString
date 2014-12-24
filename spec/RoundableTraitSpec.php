@@ -41,7 +41,7 @@ class RoundableTraitSpec extends ObjectBehavior
 
     public function it_rounds_zero()
     {
-        $this->up(0, 10)->shouldReturn(10);
+        $this->up(0, 10)->shouldReturn(0);
         $this->down(0, 10)->shouldReturn(0);
     }
 
