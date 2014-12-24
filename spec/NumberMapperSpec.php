@@ -32,6 +32,11 @@ class NumberMapperSpec extends ObjectBehavior
         $this->shouldThrow('\InvalidArgumentException')->duringParse("squawk");
     }
 
+    public function it_parses_0_into_zero()
+    {
+        $this->parse(0)->shouldReturn("zero");
+    }
+
 //    public function it_parses_25_into_twenty_five()
 //    {
 //        $this->parse(25)->shouldReturn("twenty five");
