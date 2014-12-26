@@ -2,6 +2,7 @@
 
 namespace spec\Acme;
 
+use Acme\Number;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -14,26 +15,31 @@ class HundredsParserSpec extends ObjectBehavior
 
     public function it_parses_100_into_one_hundred()
     {
-        $this->parse(100)->shouldReturn("one hundred");
+        $number = Number::make(100);
+        $this->parse($number)->shouldReturn("one hundred");
     }
 
     public function it_parses_700_into_seven_hundred()
     {
-        $this->parse(700)->shouldReturn("seven hundred");
+        $number = Number::make(700);
+        $this->parse($number)->shouldReturn("seven hundred");
     }
 
-    public function it_parses_204_into_two_hundred_and_four()
+    public function it_parses_204_into_two_hundred()
     {
-        $this->parse(204)->shouldReturn("two hundred and four");
+        $number = Number::make(204);
+        $this->parse($number)->shouldReturn("two hundred");
     }
 
-    public function it_parses_415_into_four_hundred_and_fifteen()
+    public function it_parses_415_into_four_hundred()
     {
-        $this->parse(415)->shouldReturn("four hundred and fifteen");
+        $number = Number::make(415);
+        $this->parse($number)->shouldReturn("four hundred");
     }
 
-    public function it_parses_123_into_one_hundred_and_twenty_three()
+    public function it_parses_123_into_one_hundred()
     {
-        $this->parse(123)->shouldReturn("one hundred and twenty three");
+        $number = Number::make(123);
+        $this->parse($number)->shouldReturn("one hundred");
     }
 }

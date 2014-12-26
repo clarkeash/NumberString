@@ -2,6 +2,7 @@
 
 namespace spec\Acme;
 
+use Acme\Number;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -12,56 +13,72 @@ class TensParserSpec extends ObjectBehavior
         $this->shouldHaveType('Acme\TensParser');
     }
 
-    public function it_throws_exception_if_a_non_integer_value_is_passed()
-    {
-        $this->shouldThrow('\InvalidArgumentException')->duringParse("squawk");
-    }
+//    public function it_throws_exception_if_a_non_integer_value_is_passed()
+//    {
+//        $this->shouldThrow('\InvalidArgumentException')->duringParse("squawk");
+//    }
 
     public function it_parses_20s_into_twenty()
     {
-        $this->parse(20)->shouldReturn("twenty");
-        $this->parse(29)->shouldReturn("twenty nine");
+        $number = Number::make(20);
+        $this->parse($number)->shouldReturn("twenty");
+        $number = Number::make(29);
+        $this->parse($number)->shouldReturn("twenty");
     }
 
     public function it_parses_30s_into_thirty()
     {
-        $this->parse(30)->shouldReturn("thirty");
-        $this->parse(39)->shouldReturn("thirty nine");
+        $number = Number::make(30);
+        $this->parse($number)->shouldReturn("thirty");
+        $number = Number::make(39);
+        $this->parse($number)->shouldReturn("thirty");
     }
 
     public function it_parses_40s_into_forty()
     {
-        $this->parse(40)->shouldReturn("forty");
-        $this->parse(49)->shouldReturn("forty nine");
+        $number = Number::make(40);
+        $this->parse($number)->shouldReturn("forty");
+        $number = Number::make(49);
+        $this->parse($number)->shouldReturn("forty");
     }
 
     public function it_parses_20s_into_fifty()
     {
-        $this->parse(50)->shouldReturn("fifty");
-        $this->parse(59)->shouldReturn("fifty nine");
+        $number = Number::make(50);
+        $this->parse($number)->shouldReturn("fifty");
+        $number = Number::make(59);
+        $this->parse($number)->shouldReturn("fifty");
     }
 
     public function it_parses_60s_into_sixty()
     {
-        $this->parse(60)->shouldReturn("sixty");
-        $this->parse(69)->shouldReturn("sixty nine");
+        $number = Number::make(60);
+        $this->parse($number)->shouldReturn("sixty");
+        $number = Number::make(69);
+        $this->parse($number)->shouldReturn("sixty");
     }
 
     public function it_parses_70s_into_seventy()
     {
-        $this->parse(70)->shouldReturn("seventy");
-        $this->parse(79)->shouldReturn("seventy nine");
+        $number = Number::make(70);
+        $this->parse($number)->shouldReturn("seventy");
+        $number = Number::make(79);
+        $this->parse($number)->shouldReturn("seventy");
     }
 
     public function it_parses_80s_into_eighty()
     {
-        $this->parse(80)->shouldReturn("eighty");
-        $this->parse(89)->shouldReturn("eighty nine");
+        $number = Number::make(80);
+        $this->parse($number)->shouldReturn("eighty");
+        $number = Number::make(89);
+        $this->parse($number)->shouldReturn("eighty");
     }
 
     public function it_parses_90s_into_ninety()
     {
-        $this->parse(90)->shouldReturn("ninety");
-        $this->parse(99)->shouldReturn("ninety nine");
+        $number = Number::make(90);
+        $this->parse($number)->shouldReturn("ninety");
+        $number = Number::make(99);
+        $this->parse($number)->shouldReturn("ninety");
     }
 }

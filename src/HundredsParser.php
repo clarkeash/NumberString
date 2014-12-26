@@ -17,32 +17,10 @@ class HundredsParser
         $this->tensParser = new TensParser;
     }
 
-    public function parse($number)
+    public function parse(Number $number)
     {
-        $rounded = $this->round($number);
-
-        $count = $this->unitParser->parse($rounded / 100);
-
-        $string = $count . ' ' . $this->data['hundred'];
-
-        if($number % 100 == 0) return $string;
-
-        $remainder = $number - $rounded;
-
-        if($remainder < 20)
-        {
-            $additional = $this->unitParser->parse($remainder);
-        }
-        else
-        {
-            $additional = $this->tensParser->parse($remainder);
-        }
-
-        return $string . ' and ' . $additional;
-    }
-
-    public function round($number)
-    {
-        return $this->down($number, 100);
+        $number = Number::make($number->getHundreds());
+        $count = $this->unitParser->parse( $number );
+        return $count . ' ' . $this->data['hundred'];
     }
 }

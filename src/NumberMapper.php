@@ -27,23 +27,20 @@ class NumberMapper
 
     protected function calculate($number)
     {
-        if($number < 20)
+        $number = Number::make($number);
+
+        if($number->getOriginal() < 20)
         {
             return $this->parsers['unit']->parse($number);
         }
 
-        if($number < 100)
+        if($number->getOriginal() < 100)
         {
-            return $this->parsers['tens']->parse($number);
-
-//            $rounded = $this->parsers['tens']->round($number);
-//            $tens = $this->parsers['tens']->parse($number);
-//            $units = $this->parsers['unit']->parse($number - $rounded);
-//
-//            return $tens . ' ' . $units;
+            var_dump($number);
+            return $this->parsers['tens']->parse($number) . ' ' . $this->parsers['unit']->parse($number);
         }
 
-        if($number < 1000)
+        if($number->getOriginal() < 1000)
         {
 
         }

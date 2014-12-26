@@ -18,21 +18,9 @@ class TensParser
         $this->unitParser = new UnitParser;
     }
 
-    public function parse($number)
+    public function parse(Number $number)
     {
-        if(!is_integer($number)) throw new InvalidArgumentException;
-        $rounded = $this->round($number);
-
-        $string = $this->data[$rounded];
-
-        if($number % 10 == 0) return $string;
-
-        return $string . ' ' . $this->unitParser->parse($number - $rounded);
+        $rounded = $number->getTens() * 10;
+        return $this->data[$rounded];
     }
-
-    public function round($number)
-    {
-        return $this->down($number, 10);
-    }
-
 }

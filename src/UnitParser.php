@@ -13,12 +13,18 @@ class UnitParser
         $this->data = Yaml::parse($file)['basics'];
     }
 
-    public function parse($number)
+    public function parse(Number $number)
     {
-        if(!is_integer($number)) throw new InvalidArgumentException;
-        if(array_key_exists($number, $this->data))
+        $value = $number->getUnits();
+
+        if($number->getTens() == 1)
         {
-            return $this->data[$number];
+            $value = $number->getTens() . $value;
+        }
+
+        if(array_key_exists($value, $this->data))
+        {
+            return $this->data[$value];
         }
     }
 }
