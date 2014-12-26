@@ -1,26 +1,16 @@
-<?php
+<?php namespace Acme;
 
-namespace Acme;
-
-use Symfony\Component\Yaml\Yaml;
-
-class HundredsParser
+class HundredsParser implements ParsableInterface
 {
-    use RoundableTrait;
-
-    public function __construct($lang = 'en')
+    public function __construct($data)
     {
-        $file = file_get_contents(__DIR__ . '/lang/' . $lang . '.yml');
-        $this->data = Yaml::parse($file);
-
-        $this->unitParser = new UnitParser;
-        $this->tensParser = new TensParser;
+        $this->data = $data;
+        $this->unitParser = new UnitParser($data);
     }
 
     public function parse(Number $number)
     {
-        $number = Number::make($number->getHundreds());
-        $count = $this->unitParser->parse( $number );
+        $count = (new NumberMapper)->parse($number->getHundreds());
         return $count . ' ' . $this->data['hundred'];
     }
 }

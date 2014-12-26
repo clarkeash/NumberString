@@ -9,17 +9,19 @@ class Number
     protected $units = 0;
     protected $tens = 0;
     protected $hundreds = 0;
+    protected $thousands = 0;
 
     private function __construct($value)
     {
         if(!is_integer($value)) throw new InvalidArgumentException;
-        $array = array_reverse(str_split((string) $value));
+        $array = str_split((string) $value);
 
         $this->original = $value;
 
-        $this->units = count($array) > 0 ? (int) array_shift($array) : 0;
-        $this->tens = count($array) > 0 ? (int) array_shift($array) : 0;
-        $this->hundreds = count($array) > 0 ? (int) array_shift($array) : 0;
+        $this->units = count($array) > 0 ? (int) array_pop($array) : 0;
+        $this->tens = count($array) > 0 ? (int) array_pop($array) : 0;
+        $this->hundreds = count($array) > 0 ? (int) array_pop($array) : 0;
+        $this->setThousands($array);
     }
 
     public static function make($value)
@@ -57,6 +59,19 @@ class Number
     public function getHundreds()
     {
         return $this->hundreds;
+    }
+
+    /**
+     * @return int
+     */
+    public function getThousands()
+    {
+        return $this->thousands;
+    }
+
+    public function setThousands(array $thousands)
+    {
+        $this->thousands = (int) implode('', array_splice($thousands, null, 3));
     }
 
 

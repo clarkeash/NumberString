@@ -5,12 +5,21 @@ namespace spec\Acme;
 use Acme\Number;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Component\Yaml\Yaml;
 
 class HundredsParserSpec extends ObjectBehavior
 {
+    public function let()
+    {
+        $file = file_get_contents(__DIR__ . '/../src/lang/' . 'en' . '.yml');
+        $data = Yaml::parse($file);
+        $this->beConstructedWith($data);
+    }
+
     function it_is_initializable()
     {
         $this->shouldHaveType('Acme\HundredsParser');
+        $this->shouldHaveType('Acme\ParsableInterface');
     }
 
     public function it_parses_100_into_one_hundred()

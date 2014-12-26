@@ -13,8 +13,9 @@ class NumberMapper
         $this->data = Yaml::parse($file);
 
         $this->parsers = [
-            'unit' => new UnitParser,
-            'tens' => new TensParser,
+            'unit' => new UnitParser($this->data),
+            'tens' => new TensParser($this->data),
+            'hundreds' => new HundredsParser($this->data)
         ];
     }
 
@@ -31,18 +32,50 @@ class NumberMapper
 
         if($number->getOriginal() < 20)
         {
-            return $this->parsers['unit']->parse($number);
+            return $this->units($number);
         }
 
         if($number->getOriginal() < 100)
         {
-            var_dump($number);
-            return $this->parsers['tens']->parse($number) . ' ' . $this->parsers['unit']->parse($number);
+            return $this->tens($number);
         }
 
         if($number->getOriginal() < 1000)
         {
-
+            return $this->hundreds($number);
         }
+    }
+
+    /**
+     * @param $number
+     * @return mixed
+     */
+    protected function units($number)
+    {
+        return $this->parsers['unit']->parse($number);
+    }
+
+    /**
+     * @param $number
+     * @return string
+     */
+    protected function tens($number)
+    {
+        return $this->parsers['tens']->parse($number) . ' ' . $this->parsers['unit']->parse($number);
+    }
+
+    /**
+     * @param $number
+     * @return string
+     */
+    protected function hundreds($number)
+    {
+        $string = $this->parsers['hundreds']->parse($number);
+        $string .= ' and ';
+        $string .= $this->parsers['tens']->parse($number);
+        $string .= ' ';
+        $string .= $this->parsers['unit']->parse($number);
+
+        return $string;
     }
 }

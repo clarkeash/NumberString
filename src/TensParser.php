@@ -1,21 +1,12 @@
 <?php namespace Acme;
 
-use InvalidArgumentException;
-use Symfony\Component\Yaml\Yaml;
-
-class TensParser
+class TensParser implements ParsableInterface
 {
-    use RoundableTrait;
-
     protected $data;
-    protected $unitParser;
 
-    public function __construct($lang = 'en')
+    public function __construct($data)
     {
-        $file = file_get_contents(__DIR__ . '/lang/' . $lang . '.yml');
-        $this->data = Yaml::parse($file)['tens'];
-
-        $this->unitParser = new UnitParser;
+        $this->data = $data['tens'];
     }
 
     public function parse(Number $number)

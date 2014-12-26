@@ -1,16 +1,12 @@
 <?php namespace Acme;
 
-use InvalidArgumentException;
-use Symfony\Component\Yaml\Yaml;
-
-class UnitParser
+class UnitParser implements ParsableInterface
 {
     protected $data;
 
-    public function __construct($lang = 'en')
+    public function __construct($data)
     {
-        $file = file_get_contents(__DIR__ . '/lang/' . $lang . '.yml');
-        $this->data = Yaml::parse($file)['basics'];
+        $this->data = $data['basics'];
     }
 
     public function parse(Number $number)

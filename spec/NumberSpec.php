@@ -46,4 +46,24 @@ class NumberSpec extends ObjectBehavior
         $this->getTens()->shouldReturn(8);
         $this->getUnits()->shouldReturn(7);
     }
+
+    public function it_sets_thousands()
+    {
+        $this->beConstructedThrough('make', [3456]);
+
+        $this->getThousands()->shouldReturn(3);
+        $this->getHundreds()->shouldReturn(4);
+        $this->getTens()->shouldReturn(5);
+        $this->getUnits()->shouldReturn(6);
+    }
+
+    public function it_sets_thousands_up_to_hundred_thousands()
+    {
+        $this->beConstructedThrough('make', [125765]);
+
+        $this->getThousands()->shouldReturn(125);
+        $this->getHundreds()->shouldReturn(7);
+        $this->getTens()->shouldReturn(6);
+        $this->getUnits()->shouldReturn(5);
+    }
 }
