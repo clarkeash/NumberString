@@ -4,15 +4,39 @@ use InvalidArgumentException;
 
 class Number
 {
+    /**
+     * @var int
+     */
     protected $original = 0;
 
+    /**
+     * @var int
+     */
     protected $units = 0;
+    /**
+     * @var int
+     */
     protected $tens = 0;
+    /**
+     * @var int
+     */
     protected $hundreds = 0;
+    /**
+     * @var int
+     */
     protected $thousands = 0;
+    /**
+     * @var int
+     */
     protected $millions = 0;
+    /**
+     * @var array
+     */
     protected $data = [];
 
+    /**
+     * @param $value
+     */
     private function __construct($value)
     {
         if(!is_integer($value)) throw new InvalidArgumentException;
@@ -27,6 +51,10 @@ class Number
         $this->setMillions();
     }
 
+    /**
+     * @param $value
+     * @return static
+     */
     public static function make($value)
     {
         return new static($value);
@@ -72,6 +100,9 @@ class Number
         return $this->thousands;
     }
 
+    /**
+     * Set thousand value.
+     */
     public function setThousands()
     {
         $data = array_splice($this->data, -3, 3);
@@ -86,6 +117,9 @@ class Number
         return $this->millions;
     }
 
+    /**
+     * set million value.
+     */
     public function setMillions()
     {
         $data = array_splice($this->data, -3, 3);

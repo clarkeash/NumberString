@@ -2,9 +2,15 @@
 
 abstract class BaseParser
 {
-    protected $data;
+    /**
+     * @var array
+     */
+    protected $data = [];
 
-    public function __construct($data)
+    /**
+     * @param array $data
+     */
+    public function __construct(array $data)
     {
         $this->data = $data;
     }

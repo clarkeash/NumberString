@@ -5,9 +5,18 @@ use Symfony\Component\Yaml\Yaml;
 
 class NumberMapper
 {
+    /**
+     * @var array
+     */
     protected $data;
+    /**
+     * @var array
+     */
     protected $parsers;
 
+    /**
+     * @param string $lang
+     */
     public function __construct($lang = 'en')
     {
         $file = file_get_contents(__DIR__ . '/lang/' . $lang . '.yml');
@@ -22,6 +31,10 @@ class NumberMapper
         ];
     }
 
+    /**
+     * @param $number
+     * @return string
+     */
     public function parse($number)
     {
         if(!is_integer($number)) throw new InvalidArgumentException;
@@ -29,6 +42,10 @@ class NumberMapper
         return $this->calculate($number);
     }
 
+    /**
+     * @param $number
+     * @return string
+     */
     protected function calculate($number)
     {
         $number = Number::make($number);
@@ -59,8 +76,9 @@ class NumberMapper
         }
     }
 
+
     /**
-     * @param $number
+     * @param Number $number
      * @return mixed
      */
     protected function units(Number $number)
@@ -68,8 +86,9 @@ class NumberMapper
         return $this->parsers['unit']->parse($number);
     }
 
+
     /**
-     * @param $number
+     * @param Number $number
      * @return string
      */
     protected function tens(Number $number)
@@ -84,8 +103,9 @@ class NumberMapper
         return $string;
     }
 
+
     /**
-     * @param $number
+     * @param Number $number
      * @return string
      */
     protected function hundreds(Number $number)
@@ -104,6 +124,10 @@ class NumberMapper
         return $string;
     }
 
+    /**
+     * @param Number $number
+     * @return string
+     */
     protected function thousands(Number $number)
     {
         $string = $this->parsers['thousands']->parse($number);
@@ -116,6 +140,10 @@ class NumberMapper
         return $string;
     }
 
+    /**
+     * @param Number $number
+     * @return string
+     */
     protected function millions(Number $number)
     {
         $string = $this->parsers['millions']->parse($number);

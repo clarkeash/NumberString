@@ -2,11 +2,18 @@
 
 class UnitParser extends BaseParser implements ParsableInterface
 {
+    /**
+     * @param array $data
+     */
     public function __construct($data)
     {
         $this->data = $data['basics'];
     }
 
+    /**
+     * @param Number $number
+     * @return mixed
+     */
     public function parse(Number $number)
     {
         $value = $number->getUnits();
