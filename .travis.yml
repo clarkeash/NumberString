@@ -11,3 +11,9 @@ before_script:
   - composer install --prefer-source --no-interaction --dev
 
 script: vendor/bin/phpspec run
+
+before_install:
+  sudo pip install codecov
+  
+after_success:
+  codecov
