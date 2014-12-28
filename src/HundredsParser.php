@@ -2,10 +2,11 @@
 
 class HundredsParser implements ParsableInterface
 {
+    protected $data;
+
     public function __construct($data)
     {
         $this->data = $data;
-        $this->unitParser = new UnitParser($data);
     }
 
     public function parse(Number $number)
