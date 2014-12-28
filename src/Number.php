@@ -52,7 +52,7 @@ class Number
     }
 
     /**
-     * @param $value
+     * @param integer $value
      * @return static
      */
     public static function make($value)
