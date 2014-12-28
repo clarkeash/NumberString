@@ -6,6 +6,7 @@ use Symfony\Component\Yaml\Yaml;
 class NumberMapper
 {
     protected $data;
+    protected $parsers;
 
     public function __construct($lang = 'en')
     {
