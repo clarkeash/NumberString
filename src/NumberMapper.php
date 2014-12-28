@@ -32,7 +32,7 @@ class NumberMapper
     }
 
     /**
-     * @param $number
+     * @param integer $number
      * @return string
      */
     public function parse($number)
@@ -43,7 +43,7 @@ class NumberMapper
     }
 
     /**
-     * @param $number
+     * @param integer $number
      * @return string
      */
     protected function calculate($number)
