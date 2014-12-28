@@ -1,9 +1,7 @@
 <?php namespace Acme;
 
-class UnitParser implements ParsableInterface
+class UnitParser extends BaseParser implements ParsableInterface
 {
-    protected $data;
-
     public function __construct($data)
     {
         $this->data = $data['basics'];

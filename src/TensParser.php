@@ -1,9 +1,7 @@
 <?php namespace Acme;
 
-class TensParser implements ParsableInterface
+class TensParser extends BaseParser implements ParsableInterface
 {
-    protected $data;
-
     public function __construct($data)
     {
         $this->data = $data['tens'];

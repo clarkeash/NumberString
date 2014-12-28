@@ -2,15 +2,8 @@
 
 namespace Acme;
 
-class MillionsParser implements ParsableInterface
+class MillionsParser extends BaseParser implements ParsableInterface
 {
-    protected $data;
-
-    public function __construct($data)
-    {
-        $this->data = $data;
-    }
-
     public function parse(Number $number)
     {
         $count = (new NumberMapper)->parse($number->getMillions());
