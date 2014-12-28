@@ -27,6 +27,14 @@ class TensParserSpec extends ObjectBehavior
 //        $this->shouldThrow('\InvalidArgumentException')->duringParse("squawk");
 //    }
 
+    public function it_does_not_parse_10s()
+    {
+        $number = Number::make(10);
+        $this->parse($number)->shouldReturn(null);
+        $number = Number::make(19);
+        $this->parse($number)->shouldReturn(null);
+    }
+
     public function it_parses_20s_into_twenty()
     {
         $number = Number::make(20);

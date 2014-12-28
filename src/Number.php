@@ -10,18 +10,21 @@ class Number
     protected $tens = 0;
     protected $hundreds = 0;
     protected $thousands = 0;
+    protected $millions = 0;
+    protected $data = [];
 
     private function __construct($value)
     {
         if(!is_integer($value)) throw new InvalidArgumentException;
-        $array = str_split((string) $value);
+        $this->data = str_split((string) $value);
 
         $this->original = $value;
 
-        $this->units = count($array) > 0 ? (int) array_pop($array) : 0;
-        $this->tens = count($array) > 0 ? (int) array_pop($array) : 0;
-        $this->hundreds = count($array) > 0 ? (int) array_pop($array) : 0;
-        $this->setThousands($array);
+        $this->units = count($this->data) > 0 ? (int) array_pop($this->data) : 0;
+        $this->tens = count($this->data) > 0 ? (int) array_pop($this->data) : 0;
+        $this->hundreds = count($this->data) > 0 ? (int) array_pop($this->data) : 0;
+        $this->setThousands();
+        $this->setMillions();
     }
 
     public static function make($value)
@@ -69,10 +72,23 @@ class Number
         return $this->thousands;
     }
 
-    public function setThousands(array $thousands)
+    public function setThousands()
     {
-        $this->thousands = (int) implode('', array_splice($thousands, null, 3));
+        $data = array_splice($this->data, -3, 3);
+        $this->thousands = (int) implode('', $data);
     }
 
+    /**
+     * @return int
+     */
+    public function getMillions()
+    {
+        return $this->millions;
+    }
 
+    public function setMillions()
+    {
+        $data = array_splice($this->data, -3, 3);
+        $this->millions = (int) implode('', $data);
+    }
 }

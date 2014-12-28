@@ -11,7 +11,10 @@ class TensParser implements ParsableInterface
 
     public function parse(Number $number)
     {
-        $rounded = $number->getTens() * 10;
-        return $this->data[$rounded];
+        if($number->getTens() > 1)
+        {
+            $rounded = $number->getTens() * 10;
+            return $this->data[$rounded];
+        }
     }
 }

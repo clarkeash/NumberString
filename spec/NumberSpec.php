@@ -47,7 +47,7 @@ class NumberSpec extends ObjectBehavior
         $this->getUnits()->shouldReturn(7);
     }
 
-    public function it_sets_thousands()
+    public function it_sets_single_digit_thousands()
     {
         $this->beConstructedThrough('make', [3456]);
 
@@ -57,13 +57,46 @@ class NumberSpec extends ObjectBehavior
         $this->getUnits()->shouldReturn(6);
     }
 
-    public function it_sets_thousands_up_to_hundred_thousands()
+    public function it_sets_double_digit_thousands()
     {
-        $this->beConstructedThrough('make', [125765]);
+        $this->beConstructedThrough('make', [23456]);
 
-        $this->getThousands()->shouldReturn(125);
-        $this->getHundreds()->shouldReturn(7);
-        $this->getTens()->shouldReturn(6);
-        $this->getUnits()->shouldReturn(5);
+        $this->getThousands()->shouldReturn(23);
+        $this->getHundreds()->shouldReturn(4);
+        $this->getTens()->shouldReturn(5);
+        $this->getUnits()->shouldReturn(6);
     }
+
+    public function it_sets_triple_digit_thousands()
+    {
+        $this->beConstructedThrough('make', [123456]);
+
+        $this->getThousands()->shouldReturn(123);
+        $this->getHundreds()->shouldReturn(4);
+        $this->getTens()->shouldReturn(5);
+        $this->getUnits()->shouldReturn(6);
+    }
+
+    public function it_sets_single_digit_millions()
+    {
+        $this->beConstructedThrough('make', [9123456]);
+
+        $this->getMillions()->shouldReturn(9);
+        $this->getThousands()->shouldReturn(123);
+        $this->getHundreds()->shouldReturn(4);
+        $this->getTens()->shouldReturn(5);
+        $this->getUnits()->shouldReturn(6);
+    }
+
+    public function it_sets_triple_digit_millions()
+    {
+        $this->beConstructedThrough('make', [789123456]);
+
+        $this->getMillions()->shouldReturn(789);
+        $this->getThousands()->shouldReturn(123);
+        $this->getHundreds()->shouldReturn(4);
+        $this->getTens()->shouldReturn(5);
+        $this->getUnits()->shouldReturn(6);
+    }
+
 }

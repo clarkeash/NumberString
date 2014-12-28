@@ -28,25 +28,25 @@ class ThousandsParserSpec extends ObjectBehavior
         $this->parse($number)->shouldReturn("one thousand");
     }
 
-    public function it_parses_7000_into_one_thousand()
+    public function it_parses_7000_into_seven_thousand()
     {
         $number = Number::make(7000);
         $this->parse($number)->shouldReturn("seven thousand");
     }
 
-    public function it_parses_17000_into_one_thousand()
+    public function it_parses_17000_into_seventeen_thousand()
     {
         $number = Number::make(17000);
         $this->parse($number)->shouldReturn("seventeen thousand");
     }
 
-    public function it_parses_45000_into_one_thousand()
+    public function it_parses_45000_into_forty_five_thousand()
     {
         $number = Number::make(45000);
         $this->parse($number)->shouldReturn("forty five thousand");
     }
 
-    public function it_parses_263000_into_one_thousand()
+    public function it_parses_263000_into_two_hundred_and_sixty_three_thousand()
     {
         $number = Number::make(263000);
         $this->parse($number)->shouldReturn("two hundred and sixty three thousand");

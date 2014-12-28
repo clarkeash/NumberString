@@ -15,7 +15,9 @@ class NumberMapper
         $this->parsers = [
             'unit' => new UnitParser($this->data),
             'tens' => new TensParser($this->data),
-            'hundreds' => new HundredsParser($this->data)
+            'hundreds' => new HundredsParser($this->data),
+            'thousands' => new ThousandsParser($this->data),
+            'millions' => new MillionsParser($this->data),
         ];
     }
 
@@ -44,13 +46,23 @@ class NumberMapper
         {
             return $this->hundreds($number);
         }
+
+        if($number->getOriginal() < 1000000)
+        {
+            return $this->thousands($number);
+        }
+
+        if($number->getOriginal() < 1000000000)
+        {
+            return $this->millions($number);
+        }
     }
 
     /**
      * @param $number
      * @return mixed
      */
-    protected function units($number)
+    protected function units(Number $number)
     {
         return $this->parsers['unit']->parse($number);
     }
@@ -59,22 +71,62 @@ class NumberMapper
      * @param $number
      * @return string
      */
-    protected function tens($number)
+    protected function tens(Number $number)
     {
-        return $this->parsers['tens']->parse($number) . ' ' . $this->parsers['unit']->parse($number);
+        $string = $this->parsers['tens']->parse($number);
+
+        if($number->getUnits() > 0)
+        {
+            $string .= ' ' . $this->parsers['unit']->parse($number);
+        }
+
+        return $string;
     }
 
     /**
      * @param $number
      * @return string
      */
-    protected function hundreds($number)
+    protected function hundreds(Number $number)
     {
         $string = $this->parsers['hundreds']->parse($number);
-        $string .= ' and ';
-        $string .= $this->parsers['tens']->parse($number);
-        $string .= ' ';
-        $string .= $this->parsers['unit']->parse($number);
+
+        if($number->getTens() > 1)
+        {
+            $string .= ' and ' . $this->tens($number);
+        }
+        elseif($number->getTens() > 0)
+        {
+            $string .= ' and' . $this->tens($number);
+        }
+
+        return $string;
+    }
+
+    protected function thousands(Number $number)
+    {
+        $string = $this->parsers['thousands']->parse($number);
+
+        if($number->getHundreds() > 0)
+        {
+            $string .= ' ' . $this->hundreds($number);
+        }
+
+        return $string;
+    }
+
+    protected function millions(Number $number)
+    {
+        $string = $this->parsers['millions']->parse($number);
+
+        if($number->getThousands() > 0)
+        {
+            $string .= ' ' . $this->thousands($number);
+        }
+        elseif($number->getHundreds() > 0)
+        {
+            $string .= ' ' . $this->hundreds($number);
+        }
 
         return $string;
     }
